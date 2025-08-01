@@ -29,7 +29,7 @@ services:
       - my-network
 
   application:
-    build: .
+    image: hyukwon20/itgo_server:latest
     container_name: itgo-application
     env_file:
       - .env
