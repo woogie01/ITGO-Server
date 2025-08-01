@@ -47,7 +47,7 @@ jobs:
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_SSH_KEY }}
           script: |
-            cd /home/ubuntu/itgo-server
+            cd /home/ubuntu/itgo
 
             # 최신 이미지 pull
             sudo docker-compose pull application
