@@ -63,4 +63,6 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+    // 테스트 실행 시 'dev' 프로필을 사용하도록 설정
+    systemProperty 'spring.profiles.active', 'dev'
 }
