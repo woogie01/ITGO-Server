@@ -2,14 +2,19 @@ spring:
   config:
     import: optional:file:.env[.properties]
   profiles:
-    active: prod
+    active: ${SPRING_PROFILES_ACTIVE} # .env 확인 : main 브랜치에 올릴 때는 prod 설정 ✅
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
         show-sql: true
         format_sql: true
     open-in-view: false
+
+jwt:
+  secret: ${JWT_SECRET_KEY}
+  access-token-validity-in-seconds: ${JWT_ACCESS_VALIDITY_IN_SECONDS}
+  refresh-token-validity-in-seconds: ${JWT_REFRESH_VALIDITY_IN_SECONDS}
