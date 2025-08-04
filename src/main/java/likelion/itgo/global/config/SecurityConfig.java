@@ -1,9 +1,9 @@
 package likelion.itgo.global.config;
 
-import likelion.itgo.global.jwt.JwtAccessDeniedHandler;
-import likelion.itgo.global.jwt.JwtAuthenticationEntryPoint;
-import likelion.itgo.global.jwt.JwtAuthenticationFilter;
-import likelion.itgo.global.jwt.JwtTokenProvider;
+import likelion.itgo.global.auth.jwt.JwtAccessDeniedHandler;
+import likelion.itgo.global.auth.jwt.JwtAuthenticationEntryPoint;
+import likelion.itgo.global.auth.jwt.JwtAuthenticationFilter;
+import likelion.itgo.global.auth.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtProvider jwtProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
@@ -36,7 +36,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        JwtAuthenticationFilter customFilter = new JwtAuthenticationFilter(jwtTokenProvider);
+        JwtAuthenticationFilter customFilter = new JwtAuthenticationFilter(jwtProvider);
 
         http
                 .csrf(AbstractHttpConfigurer::disable)

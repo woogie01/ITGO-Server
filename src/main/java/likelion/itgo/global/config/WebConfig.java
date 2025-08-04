@@ -1,6 +1,6 @@
 package likelion.itgo.global.config;
 
-import likelion.itgo.global.resolver.CurrentMemberIdArgumentResolver;
+import likelion.itgo.global.support.resolver.CurrentMemberIdArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
