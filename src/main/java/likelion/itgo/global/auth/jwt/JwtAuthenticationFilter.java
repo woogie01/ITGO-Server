@@ -1,10 +1,10 @@
-package likelion.itgo.global.jwt;
+package likelion.itgo.global.auth.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import likelion.itgo.global.jwt.dto.UserDetailsImpl;
+import likelion.itgo.global.auth.jwt.dto.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,14 +23,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String BEARER_PREFIX = "Bearer ";
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtProvider jwtProvider;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
         String token = resolveToken(request);
-        if (StringUtils.hasText(token) && jwtTokenProvider.validateToken(token) && !jwtTokenProvider.isRefreshToken(token)) {
+        if (StringUtils.hasText(token) && jwtProvider.isValidAccessToken(token)) {
             setAuthentication(token);
         }
         filterChain.doFilter(request, response);
@@ -45,9 +45,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private void setAuthentication(String token) {
-        Long userId = jwtTokenProvider.getUserId(token);
-        Long memberId = jwtTokenProvider.getMemberId(token);
-        String role = jwtTokenProvider.getRole(token);
+        Long userId = jwtProvider.getUserId(token);
+        Long memberId = jwtProvider.getMemberId(token);
+        String role = jwtProvider.getRole(token);
 
         // 사용자 정보를 담는 구현체 생성
         UserDetailsImpl userDetails = new UserDetailsImpl(userId, memberId, role);

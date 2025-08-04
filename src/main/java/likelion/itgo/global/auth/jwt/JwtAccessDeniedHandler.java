@@ -1,4 +1,4 @@
-package likelion.itgo.global.jwt;
+package likelion.itgo.global.auth.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
