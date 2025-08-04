@@ -1,4 +1,4 @@
-package likelion.itgo.global.resolver;
+package likelion.itgo.global.support.resolver;
 
 import java.lang.annotation.*;
 

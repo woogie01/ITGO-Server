@@ -3,6 +3,9 @@ package likelion.itgo.domain.user.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import likelion.itgo.domain.member.entity.Member;
+import likelion.itgo.domain.member.entity.Role;
+import likelion.itgo.domain.user.entity.User;
 
 @Schema(description = "회원가입 요청")
 public record SignUpRequest(
@@ -28,4 +31,20 @@ public record SignUpRequest(
     public boolean passwordMatches() {
         return password != null && password.equals(passwordConfirm);
     }
+
+    public Member toMember() {
+        return Member.builder()
+                .username(username)
+                .role(Role.ROLE_MEMBER) // 기본 권한은 일반화원으로 설정
+                .build();
+    }
+
+    public User toUser(String encodedPassword, Member member) {
+        return User.builder()
+                .loginId(loginId)
+                .password(encodedPassword)
+                .member(member)
+                .build();
+    }
+
 }

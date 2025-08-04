@@ -1,6 +1,6 @@
-package likelion.itgo.global.resolver;
+package likelion.itgo.global.support.resolver;
 
-import likelion.itgo.global.jwt.dto.UserDetailsImpl;
+import likelion.itgo.global.auth.jwt.dto.UserDetailsImpl;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package likelion.itgo.domain.user.dto;
+package likelion.itgo.global.auth.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
