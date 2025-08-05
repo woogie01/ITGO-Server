@@ -1,6 +1,9 @@
 package likelion.itgo.domain.member.entity;
 
 import jakarta.persistence.*;
+import likelion.itgo.domain.store.entity.Store;
+import likelion.itgo.global.error.GlobalErrorCode;
+import likelion.itgo.global.error.exception.CustomException;
 import likelion.itgo.global.support.BaseTimeEntity;
 import lombok.*;
 
@@ -24,4 +27,24 @@ public class Member extends BaseTimeEntity {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
+    /**
+     * 마이페이지에서 등록하는 정보
+     */
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "store_id")
+    private Store store;
+
+    /**
+     * 연관관계 메서드
+     */
+    public void registerStore(Store store) {
+        if (this.store != null) {
+            throw new CustomException(GlobalErrorCode.BAD_REQUEST, "해당 회원은 이미 가게를 등록했습니다.");
+        }
+        this.store = store;
+    }
+
+    public void removeStore() {
+        this.store = null;
+    }
 }
