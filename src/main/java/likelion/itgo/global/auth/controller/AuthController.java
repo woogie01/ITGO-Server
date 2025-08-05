@@ -46,7 +46,8 @@ public class AuthController {
     @PostMapping("/logout")
     @Operation(
             summary = "로그아웃",
-            description = "Redis에서 RefreshToken 제거"
+            description = "Redis에서 RefreshToken 제거\n\n" +
+                    "`Authorization: Bearer {accessToken}`"
     )
     public ApiResponse<Object> logout(
             @Parameter(hidden = true)
@@ -64,7 +65,8 @@ public class AuthController {
     @PostMapping("/reissue")
     @Operation(
             summary = "토큰 재발급",
-            description = "RefreshToken 기반으로 AccessToken 및 RefreshToken 재발급"
+            description = "RefreshToken 기반으로 AccessToken 및 RefreshToken 재발급\n\n" +
+                    "`X-Refresh-Token: {refreshToken}`"
     )
     public ApiResponse<TokenRefreshResponse> refreshToken(
             @RequestHeader("X-Refresh-Token")
